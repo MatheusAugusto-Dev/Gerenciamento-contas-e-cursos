@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/gerenciamento.css') }}">
+    <title>Gerenciador de Contas e Cursos</title>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">MeuSite</div>
+        <ul class="nav-links">
+            <li><a href="{{ url_for('dashboard') }}"">Dashboard</a></li>
+            <li><a href="{{ url_for('gerenciamento') }}"">Gerenciar Contas e Cursos</a></li>
+            <li><a href="{{ url_for('logout') }}">Sair</a></li>
+        </ul>
+    </nav>
+    
+    <div class="container">
+        <div class="tabs">
+            <div class="tab active" id="tab-contas">Gerenciar Contas</div>
+            <div class="tab" id="tab-cursos">Gerenciar Cursos</div>
+        </div>
+        
+        <!-- Seção de Contas -->
+        <div class="section active" id="section-contas">
+            <h2 class="section-title">Cadastro de Conta</h2>
+            
+            <form id="form-conta">
+                <div class="form-group">
+                    <label for="site-conta">Nome do Site da Conta</label>
+                    <input type="text" id="site-conta" placeholder="Ex: Facebook, LinkedIn, etc." required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="login-conta">Login da Conta</label>
+                    <input type="text" id="login-conta" placeholder="Seu email ou nome de usuário" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="senha-conta">Senha da Conta</label>
+                    <input type="password" id="senha-conta" placeholder="Sua senha" required>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="btn-limpar-conta">Limpar</button>
+                    <button type="submit" class="btn btn-primary" id="btn-salvar-conta">Salvar Conta</button>
+                </div>
+            </form>
+            
+            <div class="items-list" id="lista-contas">
+                <h3 class="section-title">Contas Cadastradas</h3>
+                
+                <!-- Exemplo de Conta Cadastrada -->
+                <div class="item-card">
+                    <h4 class="item-title">Udemy</h4>
+                    <p class="item-detail"><span>Login:</span> usuario@exemplo.com</p>
+                    <p class="item-detail"><span>Senha:</span> ••••••••</p>
+                    
+                    <div class="item-actions">
+                        <div class="item-action edit">Editar</div>
+                        <div class="item-action delete">Excluir</div>
+                    </div>
+                </div>
+                
+                <div class="item-card">
+                    <h4 class="item-title">Coursera</h4>
+                    <p class="item-detail"><span>Login:</span> outro@exemplo.com</p>
+                    <p class="item-detail"><span>Senha:</span> ••••••••</p>
+                    
+                    <div class="item-actions">
+                        <div class="item-action edit">Editar</div>
+                        <div class="item-action delete">Excluir</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Seção de Cursos -->
+        <div class="section" id="section-cursos">
+            <h2 class="section-title">Cadastro de Curso</h2>
+            
+            <form id="form-curso">
+                <div class="form-group">
+                    <label for="nome-curso">Nome do Curso</label>
+                    <input type="text" id="nome-curso" placeholder="Ex: JavaScript Avançado" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="descricao-curso">Descrição do Curso</label>
+                    <textarea id="descricao-curso" placeholder="Breve descrição do curso..." required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="conta-curso">Conta Pertencente</label>
+                    <select id="conta-curso" required>
+                        <option value="">Selecione uma conta</option>
+                        <option value="1">Udemy</option>
+                        <option value="2">Coursera</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="site-curso">Site da Conta do Curso</label>
+                    <input type="text" id="site-curso" placeholder="https://www.exemplo.com/curso" required>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="btn-limpar-curso">Limpar</button>
+                    <button type="submit" class="btn btn-primary" id="btn-salvar-curso">Salvar Curso</button>
+                </div>
+            </form>
+            
+            <div class="items-list" id="lista-cursos">
+                <h3 class="section-title">Cursos Cadastrados</h3>
+                
+                <!-- Exemplo de Curso Cadastrado -->
+                <div class="item-card course-card">
+                    <h4 class="item-title">React: Do Zero ao Profissional</h4>
+                    <p class="item-detail"><span>Descrição:</span> Aprenda React construindo aplicações reais.</p>
+                    <p class="item-detail"><span>Conta:</span> Udemy</p>
+                    <p class="item-detail"><span>Site:</span> https://www.udemy.com/curso-react</p>
+                    
+                    <div class="item-actions">
+                        <div class="item-action edit">Editar</div>
+                        <div class="item-action delete">Excluir</div>
+                    </div>
+                </div>
+                
+                <div class="item-card course-card">
+                    <h4 class="item-title">Machine Learning</h4>
+                    <p class="item-detail"><span>Descrição:</span> Uma introdução abrangente a Machine Learning com Python.</p>
+                    <p class="item-detail"><span>Conta:</span> Coursera</p>
+                    <p class="item-detail"><span>Site:</span> https://www.coursera.org/ml-course</p>
+                    
+                    <div class="item-actions">
+                        <div class="item-action edit">Editar</div>
+                        <div class="item-action delete">Excluir</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Alternância entre as tabs
+        document.getElementById('tab-contas').addEventListener('click', function() {
+            document.getElementById('tab-contas').classList.add('active');
+            document.getElementById('tab-cursos').classList.remove('active');
+            document.getElementById('section-contas').classList.add('active');
+            document.getElementById('section-cursos').classList.remove('active');
+        });
+        
+        document.getElementById('tab-cursos').addEventListener('click', function() {
+            document.getElementById('tab-cursos').classList.add('active');
+            document.getElementById('tab-contas').classList.remove('active');
+            document.getElementById('section-cursos').classList.add('active');
+            document.getElementById('section-contas').classList.remove('active');
+        });
+        
+        // Links da Navbar
+        document.getElementById('contas-tab').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('tab-contas').click();
+        });
+        
+        document.getElementById('cursos-tab').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('tab-cursos').click();
+        });
+        
+        // Botões de limpar formulário
+        document.getElementById('btn-limpar-conta').addEventListener('click', function() {
+            document.getElementById('form-conta').reset();
+        });
+        
+        document.getElementById('btn-limpar-curso').addEventListener('click', function() {
+            document.getElementById('form-curso').reset();
+        });
+        
+        // Exemplo de funcionalidade para os botões (apenas para demonstração)
+        document.querySelectorAll('.item-action').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                if (this.classList.contains('edit')) {
+                    alert('Função de editar - implementação pendente');
+                } else if (this.classList.contains('delete')) {
+                    if (confirm('Tem certeza que deseja excluir este item?')) {
+                        alert('Item excluído (simulação)');
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
