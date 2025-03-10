@@ -53,7 +53,7 @@ def cadastro():
     if request.method == 'POST':
         email = request.form.get('email')
         senha = request.form.get('senha')
-        nome_usuario = request.form.get('nome_usuario')
+        nome_usuario = request.form.get('nome')
 
         if Login.query.filter_by(email=email).first():
             flash('Email já cadastrado!', 'error')
@@ -77,13 +77,15 @@ def logout():
     flash('Logout realizado com sucesso!', 'success')
     return redirect(url_for('login'))
 
-@login_required #* login necessario
+
 @app.route("/dashboard") 
+@login_required #* login necessario
 def dashboard(): 
     return render_template("dashboard.html")
 
-@login_required #* login necessario
+
 @app.route("/gerenciamento") 
+@login_required #* login necessario
 def gerenciamento(): 
     return render_template("gerenciamento.html")
 
