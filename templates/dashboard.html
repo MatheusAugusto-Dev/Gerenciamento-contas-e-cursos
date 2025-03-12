@@ -10,41 +10,31 @@
     <nav class="navbar">
         <div class="logo">MeuSite</div>
         <ul class="nav-links">
-            <li><a href="{{ url_for('dashboard') }}"">Dashboard</a></li>
-            <li><a href="{{ url_for('gerenciamento') }}"">Gerenciar Contas e Cursos</a></li>
+            <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+            <li><a href="{{ url_for('gerenciamento') }}">Gerenciar Contas e Cursos</a></li>
             <li><a href="{{ url_for('logout') }}">Sair</a></li>
         </ul>
     </nav>
     
     <div class="container">
-        <div class="cards-container">
-            <div class="card">
-                <div class="card-img">Imagem 1</div>
-                <div class="card-content">
-                    <h3 class="card-title">Serviço 1</h3>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris. Vivamus hendrerit arcu sed erat molestie vehicula.</p>
-                    <a href="#" class="card-button">Saiba mais</a>
-                </div>
+        {% if cursos %}
+            <div class="cards-container">
+                {% for curso in cursos %}
+                    <div class="card">
+                        <div class="card-img">
+                            <img src="{{ url_for('static', filename='img/imagemteste.jpg') }}" alt="Imagem de teste">
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">{{ curso.nome_curso }}</h3>
+                            <p class="card-text">{{ curso.descricao_curso }}</p>
+                            <a href="#" class="card-button">Saiba mais</a>
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
-            
-            <div class="card">
-                <div class="card-img">Imagem 2</div>
-                <div class="card-content">
-                    <h3 class="card-title">Serviço 2</h3>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris. Vivamus hendrerit arcu sed erat molestie vehicula.</p>
-                    <a href="#" class="card-button">Saiba mais</a>
-                </div>
-            </div>
-            
-            <div class="card">
-                <div class="card-img">Imagem 3</div>
-                <div class="card-content">
-                    <h3 class="card-title">Serviço 3</h3>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris. Vivamus hendrerit arcu sed erat molestie vehicula.</p>
-                    <a href="#" class="card-button">Saiba mais</a>
-                </div>
-            </div>
-        </div>
+        {% else %}
+            <p class="no-courses">Nenhum curso encontrado.</p>
+        {% endif %}
     </div>
 </body>
 </html>

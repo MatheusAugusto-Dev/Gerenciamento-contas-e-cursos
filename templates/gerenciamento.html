@@ -26,20 +26,20 @@
         <div class="section active" id="section-contas">
             <h2 class="section-title">Cadastro de Conta</h2>
             
-            <form id="form-conta">
+            <form id="form-conta" action="{{ url_for('gerenciamento') }}" method="POST">
                 <div class="form-group">
                     <label for="site-conta">Nome do Site da Conta</label>
-                    <input type="text" id="site-conta" placeholder="Ex: Facebook, LinkedIn, etc." required>
+                    <input type="text" id="site-conta" name="site-conta" placeholder="Ex: Facebook, LinkedIn, etc." required>
                 </div>
                 
                 <div class="form-group">
                     <label for="login-conta">Login da Conta</label>
-                    <input type="text" id="login-conta" placeholder="Seu email ou nome de usuário" required>
+                    <input type="text" id="login-conta" name="login-conta" placeholder="Seu email ou nome de usuário" required>
                 </div>
                 
                 <div class="form-group">
                     <label for="senha-conta">Senha da Conta</label>
-                    <input type="password" id="senha-conta" placeholder="Sua senha" required>
+                    <input type="password" id="senha-conta" name="senha-conta" placeholder="Sua senha" required>
                 </div>
                 
                 <div class="form-actions">
@@ -50,29 +50,23 @@
             
             <div class="items-list" id="lista-contas">
                 <h3 class="section-title">Contas Cadastradas</h3>
-                
-                <!-- Exemplo de Conta Cadastrada -->
-                <div class="item-card">
-                    <h4 class="item-title">Udemy</h4>
-                    <p class="item-detail"><span>Login:</span> usuario@exemplo.com</p>
-                    <p class="item-detail"><span>Senha:</span> ••••••••</p>
-                    
-                    <div class="item-actions">
-                        <div class="item-action edit">Editar</div>
-                        <div class="item-action delete">Excluir</div>
-                    </div>
-                </div>
-                
-                <div class="item-card">
-                    <h4 class="item-title">Coursera</h4>
-                    <p class="item-detail"><span>Login:</span> outro@exemplo.com</p>
-                    <p class="item-detail"><span>Senha:</span> ••••••••</p>
-                    
-                    <div class="item-actions">
-                        <div class="item-action edit">Editar</div>
-                        <div class="item-action delete">Excluir</div>
-                    </div>
-                </div>
+                {% if contas %}
+                    {% for conta in contas  %}
+                        <!-- Exemplo de Conta Cadastrada -->
+                        <div class="item-card">
+                            <h4 class="item-title">Udemy</h4>
+                            <p class="item-detail"><span>Login:</span> usuario@exemplo.com</p>
+                            <p class="item-detail"><span>Senha:</span> ••••••••</p>
+                            
+                            <div class="item-actions">
+                                <div class="item-action edit">Editar</div>
+                                <div class="item-action delete">Excluir</div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p class="no-counts">Nenhuma conta encontrada.</p>
+                {% endif %}
             </div>
         </div>
         
@@ -80,7 +74,7 @@
         <div class="section" id="section-cursos">
             <h2 class="section-title">Cadastro de Curso</h2>
             
-            <form id="form-curso">
+            <form id="form-curso" action="{{ url_for('gerenciamento') }}" method="POST">
                 <div class="form-group">
                     <label for="nome-curso">Nome do Curso</label>
                     <input type="text" id="nome-curso" placeholder="Ex: JavaScript Avançado" required>
@@ -93,16 +87,20 @@
                 
                 <div class="form-group">
                     <label for="conta-curso">Conta Pertencente</label>
-                    <select id="conta-curso" required>
+                    <select id="conta-curso" name='id_conta'required>
                         <option value="">Selecione uma conta</option>
-                        <option value="1">Udemy</option>
-                        <option value="2">Coursera</option>
+                        {% if contas %}
+                            {% for conta in contas %}
+                                <option value="{{ conta.id }}">{{ conta.site_conta }}</option>
+                            {% endfor %}
+                        {% else %}
+                        {% endif %}
                     </select>
                 </div>
                 
                 <div class="form-group">
-                    <label for="site-curso">Site da Conta do Curso</label>
-                    <input type="text" id="site-curso" placeholder="https://www.exemplo.com/curso" required>
+                    <label for="site-curso">Imagem da conta curso</label>
+                    <input type="text" id="site-curso" placeholder="Adicionar input de imagem" required>
                 </div>
                 
                 <div class="form-actions">
@@ -113,31 +111,24 @@
             
             <div class="items-list" id="lista-cursos">
                 <h3 class="section-title">Cursos Cadastrados</h3>
-                
-                <!-- Exemplo de Curso Cadastrado -->
-                <div class="item-card course-card">
-                    <h4 class="item-title">React: Do Zero ao Profissional</h4>
-                    <p class="item-detail"><span>Descrição:</span> Aprenda React construindo aplicações reais.</p>
-                    <p class="item-detail"><span>Conta:</span> Udemy</p>
-                    <p class="item-detail"><span>Site:</span> https://www.udemy.com/curso-react</p>
-                    
-                    <div class="item-actions">
-                        <div class="item-action edit">Editar</div>
-                        <div class="item-action delete">Excluir</div>
-                    </div>
-                </div>
-                
-                <div class="item-card course-card">
-                    <h4 class="item-title">Machine Learning</h4>
-                    <p class="item-detail"><span>Descrição:</span> Uma introdução abrangente a Machine Learning com Python.</p>
-                    <p class="item-detail"><span>Conta:</span> Coursera</p>
-                    <p class="item-detail"><span>Site:</span> https://www.coursera.org/ml-course</p>
-                    
-                    <div class="item-actions">
-                        <div class="item-action edit">Editar</div>
-                        <div class="item-action delete">Excluir</div>
-                    </div>
-                </div>
+                {% if cursos %}
+                    {% for curso in cursos  %}
+                        <!-- Exemplo de Curso Cadastrado -->
+                        <div class="item-card course-card">
+                            <h4 class="item-title">React: Do Zero ao Profissional</h4>
+                            <p class="item-detail"><span>Descrição:</span> Aprenda React construindo aplicações reais.</p>
+                            <p class="item-detail"><span>Conta:</span> Udemy</p>
+                            <p class="item-detail"><span>Site:</span> https://www.udemy.com/curso-react</p>
+                            
+                            <div class="item-actions">
+                                <div class="item-action edit">Editar</div>
+                                <div class="item-action delete">Excluir</div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p class="no-counts">Nenhuma curso encontrado.</p>
+                {% endif %}
             </div>
         </div>
     </div>
