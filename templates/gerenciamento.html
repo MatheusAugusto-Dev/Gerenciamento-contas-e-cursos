@@ -54,9 +54,9 @@
                     {% for conta in contas  %}
                         <!-- Exemplo de Conta Cadastrada -->
                         <div class="item-card">
-                            <h4 class="item-title">Udemy</h4>
-                            <p class="item-detail"><span>Login:</span> usuario@exemplo.com</p>
-                            <p class="item-detail"><span>Senha:</span> ••••••••</p>
+                            <h4 class="item-title"> {{conta.site_conta}}</h4>
+                            <p class="item-detail"><span>Login:</span> {{conta.email_conta}}</p>
+                            <p class="item-detail"><span>Senha:</span> {{conta.senha_conta}}</p>
                             
                             <div class="item-actions">
                                 <div class="item-action edit">Editar</div>
@@ -77,12 +77,12 @@
             <form id="form-curso" action="{{ url_for('gerenciamento') }}" method="POST">
                 <div class="form-group">
                     <label for="nome-curso">Nome do Curso</label>
-                    <input type="text" id="nome-curso" placeholder="Ex: JavaScript Avançado" required>
+                    <input type="text" id="nome-curso" name='nome-curso' placeholder="Ex: JavaScript Avançado" required>
                 </div>
                 
                 <div class="form-group">
                     <label for="descricao-curso">Descrição do Curso</label>
-                    <textarea id="descricao-curso" placeholder="Breve descrição do curso..." required></textarea>
+                    <textarea id="descricao-curso" name='descricao-curso' placeholder="Breve descrição do curso..." required></textarea>
                 </div>
                 
                 <div class="form-group">
@@ -91,17 +91,17 @@
                         <option value="">Selecione uma conta</option>
                         {% if contas %}
                             {% for conta in contas %}
-                                <option value="{{ conta.id }}">{{ conta.site_conta }}</option>
+                                <option value="{{ conta.id }}">{{ "{} - {}".format(conta.site_conta, conta.email_conta) }}</option>
                             {% endfor %}
                         {% else %}
                         {% endif %}
                     </select>
                 </div>
                 
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <label for="site-curso">Imagem da conta curso</label>
                     <input type="text" id="site-curso" placeholder="Adicionar input de imagem" required>
-                </div>
+                </div> -->
                 
                 <div class="form-actions">
                     <button type="button" class="btn btn-secondary" id="btn-limpar-curso">Limpar</button>
@@ -115,10 +115,10 @@
                     {% for curso in cursos  %}
                         <!-- Exemplo de Curso Cadastrado -->
                         <div class="item-card course-card">
-                            <h4 class="item-title">React: Do Zero ao Profissional</h4>
-                            <p class="item-detail"><span>Descrição:</span> Aprenda React construindo aplicações reais.</p>
-                            <p class="item-detail"><span>Conta:</span> Udemy</p>
-                            <p class="item-detail"><span>Site:</span> https://www.udemy.com/curso-react</p>
+                            <h4 class="item-title"> {{curso.nome_curso}}</h4>
+                            <p class="item-detail"><span>Descrição:</span> {{curso.descricao_curso}}</p>
+                            <p class="item-detail"><span>Conta:</span> {{ curso.conta.site_conta }} | {{ curso.conta.email_conta }}</p>
+                            <!-- <p class="item-detail"><span>Site:</span> https://www.udemy.com/curso-react</p> -->
                             
                             <div class="item-actions">
                                 <div class="item-action edit">Editar</div>

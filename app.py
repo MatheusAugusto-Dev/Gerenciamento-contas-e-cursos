@@ -85,27 +85,53 @@ def dashboard():
     return render_template("dashboard.html", cursos=cursos)
 
 
-@app.route("/gerenciamento", methods=['GET', 'POST']) 
-@login_required #* login necessario
-def gerenciamento(): 
+@app.route("/gerenciamento", methods=['GET', 'POST'])
+@login_required
+def gerenciamento():
     cursos = Curso.query.filter_by(id_login=current_user.id).all()
     contas = Conta.query.filter_by(id_login=current_user.id).all()
 
     if request.method == 'POST':
+        #* Verifica se os campos de conta estão preenchidos
         site_conta = request.form.get('site-conta')
         login_conta = request.form.get('login-conta')
         senha_conta = request.form.get('senha-conta')
 
-        print(f"Informações da conta: \n{site_conta} \n {login_conta} \n {senha_conta} --\n")
+        #* Cadastra conta se os campos necessários estiverem preenchidos
+        if site_conta and login_conta and senha_conta:
+            nova_conta = Conta(
+                id_login=current_user.id,
+                site_conta=site_conta,
+                email_conta=login_conta,
+                senha_conta=senha_conta
+            )
+            db.session.add(nova_conta)
+            db.session.commit()
+            flash('Conta cadastrada com sucesso!', 'success')
 
+        #* Verifica se os campos de curso estão preenchidos
         nome_curso = request.form.get('nome-curso')
         desc_curso = request.form.get('descricao-curso')
         conta_pertence = request.form.get('id_conta')
+        # imagem_curso = request.form.get('imagem-curso', '')  # Campo opcional
 
-        print(f"Informações do curso: \n {nome_curso} \n {desc_curso} \n {conta_pertence} --\n")
+        #* Cadastra curso se os campos necessários estiverem preenchidos
+        if nome_curso and conta_pertence:
+            novo_curso = Curso(
+                id_login=current_user.id,
+                id_conta=conta_pertence,
+                nome_curso=nome_curso,
+                descricao_curso=desc_curso,
+            )
+            db.session.add(novo_curso)
+            db.session.commit()
+            flash('Curso cadastrado com sucesso!', 'success')
+        else:
+            print("curso não cadastrado")
 
-
-
+        # Recarrega os dados após os cadastros
+        cursos = Curso.query.filter_by(id_login=current_user.id).all()
+        contas = Conta.query.filter_by(id_login=current_user.id).all()
 
     return render_template("gerenciamento.html", cursos=cursos, contas=contas)
 
