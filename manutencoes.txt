@@ -14,3 +14,9 @@ Manutenções a se fazer:
 
 * Conferir quais arquivos devem ser incluídos no .gitignore.
 * Status: Pendente
+
+* Testar upload de imagem e verificar se está funcionando corretamente.
+* Status: Pendente
+
+* Verificar se o que é exibido quando nao tem imagem no banco de dados.
+* Status: Pendente
