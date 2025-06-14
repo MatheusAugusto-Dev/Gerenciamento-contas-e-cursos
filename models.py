@@ -51,7 +51,7 @@ class Curso(db.Model):
     id_conta = db.Column(db.Integer, db.ForeignKey('contas.id'), nullable=False)
     nome_curso = db.Column(db.String(255), nullable=False)
     descricao_curso = db.Column(db.Text, nullable=True)
-    imagem_curso = db.Column(db.String(255), nullable=True)  #* URL ou caminho da imagem
+    imagem_curso = db.Column(db.LargeBinary, nullable=True)  #* Imagem do curso
 
     def __repr__(self):
         return f"<Curso {self.nome_curso}>"

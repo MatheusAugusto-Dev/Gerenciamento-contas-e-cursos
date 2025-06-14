@@ -1,0 +1,16 @@
+Manutenções a se fazer:
+
+* Inserir função no botão que limpa o formulario.
+* Status: OK 14/06/2025
+
+* Inserir exclusão de contas do banco de dados. 
+* Status: OK 14/06/2025
+
+* Inserir exclusão de cursos do banco de dados.
+* Status: OK 14/06/2025
+
+* Melhoria de documentação e boas práticas.
+* Status: Pendente
+
+* Conferir quais arquivos devem ser incluídos no .gitignore.
+* Status: Pendente

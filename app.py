@@ -127,13 +127,36 @@ def gerenciamento():
             db.session.commit()
             flash('Curso cadastrado com sucesso!', 'success')
         else:
-            print("curso não cadastrado")
+            flash("Curso não cadastrado", 'error')
 
         # Recarrega os dados após os cadastros
         cursos = Curso.query.filter_by(id_login=current_user.id).all()
         contas = Conta.query.filter_by(id_login=current_user.id).all()
 
     return render_template("gerenciamento.html", cursos=cursos, contas=contas)
+
+@app.route('/excluir_conta/<int:id>', methods=['POST'])
+@login_required
+def excluir_conta(id):
+    conta = Conta.query.get_or_404(id)
+    db.session.delete(conta)
+    db.session.commit()
+    flash('Conta excluída com sucesso!', 'success')
+    cursos = Curso.query.filter_by(id_login=current_user.id).all()
+    contas = Conta.query.filter_by(id_login=current_user.id).all()
+    return redirect(url_for('gerenciamento', cursos=cursos, contas=contas))
+
+@app.route('/excluir_curso/<int:id>', methods=['POST'])
+@login_required
+def excluir_curso(id):
+    curso = Curso.query.get_or_404(id)
+    db.session.delete(curso)
+    db.session.commit()
+    flash('Curso excluído com sucesso!', 'success')
+    cursos = Curso.query.filter_by(id_login=current_user.id).all()
+    contas = Conta.query.filter_by(id_login=current_user.id).all()
+    return redirect(url_for('gerenciamento', cursos=cursos, contas=contas))
+
 
 if __name__ == "__main__":
     app.run(debug=True)

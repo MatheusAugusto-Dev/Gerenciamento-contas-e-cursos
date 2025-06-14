@@ -8,16 +8,16 @@
 </head>
 <body>
     <nav class="navbar">
-        <div class="logo">MeuSite</div>
+        <div class="logo">LogInfo</div>
         <ul class="nav-links">
-            <li><a href="{{ url_for('dashboard') }}"">Dashboard</a></li>
-            <li><a href="{{ url_for('gerenciamento') }}"">Gerenciar Contas e Cursos</a></li>
+            <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+            <li><a href="{{ url_for('gerenciamento') }}">Gerenciar Contas e Cursos</a></li>
             <li><a href="{{ url_for('logout') }}">Sair</a></li>
         </ul>
     </nav>
     
     <div class="container">
-        <div class="tabs">
+        <div class="tabs" id="navbar-tabs">
             <div class="tab active" id="tab-contas">Gerenciar Contas</div>
             <div class="tab" id="tab-cursos">Gerenciar Cursos</div>
         </div>
@@ -60,7 +60,9 @@
                             
                             <div class="item-actions">
                                 <div class="item-action edit">Editar</div>
-                                <div class="item-action delete">Excluir</div>
+                                <form action="{{ url_for('excluir_conta', id=conta.id) }}" method="post" style="display:inline;">
+                                    <button type="submit" onclick="return confirm('Tem certeza?');" class="item-action delete">Excluir</button>
+                                </form>
                             </div>
                         </div>
                     {% endfor %}
@@ -87,7 +89,7 @@
                 
                 <div class="form-group">
                     <label for="conta-curso">Conta Pertencente</label>
-                    <select id="conta-curso" name='id_conta'required>
+                    <select id="conta-curso" name='id_conta' required>
                         <option value="">Selecione uma conta</option>
                         {% if contas %}
                             {% for conta in contas %}
@@ -122,7 +124,9 @@
                             
                             <div class="item-actions">
                                 <div class="item-action edit">Editar</div>
-                                <div class="item-action delete">Excluir</div>
+                                <form action="{{ url_for('excluir_curso', id=curso.id) }}" method="post" style="display:inline;">
+                                    <button type="submit" onclick="return confirm('Tem certeza?');" class="item-action delete">Excluir</button>
+                                </form>
                             </div>
                         </div>
                     {% endfor %}
@@ -134,32 +138,21 @@
     </div>
     
     <script>
-        // Alternância entre as tabs
-        document.getElementById('tab-contas').addEventListener('click', function() {
-            document.getElementById('tab-contas').classList.add('active');
-            document.getElementById('tab-cursos').classList.remove('active');
-            document.getElementById('section-contas').classList.add('active');
-            document.getElementById('section-cursos').classList.remove('active');
+        // Delegação de eventos para trocar as abas
+        document.getElementById('navbar-tabs').addEventListener('click', function(e) {
+            if (e.target.id === 'tab-contas') {
+                document.getElementById('tab-contas').classList.add('active');
+                document.getElementById('tab-cursos').classList.remove('active');
+                document.getElementById('section-contas').classList.add('active');
+                document.getElementById('section-cursos').classList.remove('active');
+            } else if (e.target.id === 'tab-cursos') {
+                document.getElementById('tab-cursos').classList.add('active');
+                document.getElementById('tab-contas').classList.remove('active');
+                document.getElementById('section-cursos').classList.add('active');
+                document.getElementById('section-contas').classList.remove('active');
+            }
         });
-        
-        document.getElementById('tab-cursos').addEventListener('click', function() {
-            document.getElementById('tab-cursos').classList.add('active');
-            document.getElementById('tab-contas').classList.remove('active');
-            document.getElementById('section-cursos').classList.add('active');
-            document.getElementById('section-contas').classList.remove('active');
-        });
-        
-        // Links da Navbar
-        document.getElementById('contas-tab').addEventListener('click', function(e) {
-            e.preventDefault();
-            document.getElementById('tab-contas').click();
-        });
-        
-        document.getElementById('cursos-tab').addEventListener('click', function(e) {
-            e.preventDefault();
-            document.getElementById('tab-cursos').click();
-        });
-        
+
         // Botões de limpar formulário
         document.getElementById('btn-limpar-conta').addEventListener('click', function() {
             document.getElementById('form-conta').reset();
@@ -167,19 +160,6 @@
         
         document.getElementById('btn-limpar-curso').addEventListener('click', function() {
             document.getElementById('form-curso').reset();
-        });
-        
-        // Exemplo de funcionalidade para os botões (apenas para demonstração)
-        document.querySelectorAll('.item-action').forEach(function(btn) {
-            btn.addEventListener('click', function() {
-                if (this.classList.contains('edit')) {
-                    alert('Função de editar - implementação pendente');
-                } else if (this.classList.contains('delete')) {
-                    if (confirm('Tem certeza que deseja excluir este item?')) {
-                        alert('Item excluído (simulação)');
-                    }
-                }
-            });
         });
     </script>
 </body>
