@@ -1,0 +1,78 @@
+# ========================================
+# Python
+# ========================================
+__pycache__/
+*.py[cod]
+*$py.class
+ECHO est  desativado.
+# Ambientes virtuais
+venv/
+.venv/
+env/
+ENV/
+ECHO est  desativado.
+# Logs
+*.log
+logs/
+ECHO est  desativado.
+# SQLite
+*.sqlite3
+*.db
+ECHO est  desativado.
+# Arquivos de ambiente
+.env
+.env.*
+ECHO est  desativado.
+# Cache
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+ECHO est  desativado.
+# Build
+build/
+dist/
+*.egg-info/
+.eggs/
+ECHO est  desativado.
+# VS Code
+.vscode/
+ECHO est  desativado.
+# PyCharm
+.idea/
+ECHO est  desativado.
+# Jupyter
+.ipynb_checkpoints/
+ECHO est  desativado.
+# Sistema Operacional
+.DS_Store
+Thumbs.db
+desktop.ini
+ECHO est  desativado.
+# Arquivos temporarios
+*.tmp
+*.temp
+*.bak
+*.swp
+ECHO est  desativado.
+# Configuracoes locais
+local_settings.py
+ECHO est  desativado.
+# Testes
+.tox/
+.nox/
+ECHO est  desativado.
+# Arquivos de cobertura
+coverage.xml
+*.cover
+ECHO est  desativado.
+# Instaladores
+pip-wheel-metadata/
+ECHO est  desativado.
+# Caches diversos
+.cache/
+ECHO est  desativado.
+# Secrets
+secrets.json
+credentials.json
